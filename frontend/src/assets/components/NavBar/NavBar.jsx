@@ -14,8 +14,8 @@ export default function NavBar() {
         className="sm:hidden"
       />
       <NavbarBrand>
-        <p className="font-bold text-inherit text-3xl py-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-md pl-16 px-2 mr-2">BIKE</p>
-        <span className="font-medium text-xl  font-['Licorice'] ">Your next BIKE...</span>
+        <p className="font-bold text-inherit text-3xl py-1 bg-gradient-to-r   from-purple-500 to-pink-500 rounded-md pl-16 px-2 mr-2">BIKE</p>
+        {/* <span className="font-medium text-xl  font-['Licorice'] ">Your next BIKE...</span> */}
       </NavbarBrand>
     </NavbarContent>
     <NavbarContent className="hidden sm:flex gap-4" justify="center">
