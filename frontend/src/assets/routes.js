@@ -1,8 +1,8 @@
 import Layout from "../Layout";
 import About from "./pages/About/About";
-import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
 import SignUp from "./pages/signUp/SignUp";
+import SignIn from "./pages/SignIn/SignIn";
 
 export const routes =[
     {
@@ -10,8 +10,8 @@ export const routes =[
       element: <Layout/>,
       children:[
         {
-          path: "/login",
-          element: <Login/>,
+          path: "/Signin",
+          element: <SignIn/>,
         },
         {
           path: "/signup",
@@ -29,4 +29,5 @@ export const routes =[
   
       ]
     }
+
   ]

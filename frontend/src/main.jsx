@@ -5,21 +5,21 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from "./assets/pages/Home/Home";
-import Login from "./assets/pages/Login/Login";
 import SignUp from "./assets/pages/signUp/SignUp";
 import About from "./assets/pages/About/About";
 import Profile from "./assets/pages/Profile/Profile";
 import './index.css'
 import {NextUIProvider} from '@nextui-org/react'
 import Layout from './Layout';
+import SignIn from './assets/pages/SignIn/SignIn';
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout/>,
     children:[
       {
-        path: "/login",
-        element: <Login/>,
+        path: "/signin",
+        element: <SignIn/>,
       },
       {
         path: "/signup",
