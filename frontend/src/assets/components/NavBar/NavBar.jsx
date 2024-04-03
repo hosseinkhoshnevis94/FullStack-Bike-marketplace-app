@@ -29,7 +29,7 @@ export default function NavBar() {
     </NavbarContent>
     <NavbarContent justify="end">
       <NavbarItem className="hidden lg:flex">
-        <Link to="/signin">Signin</Link>
+        <Link to="/signin">Login</Link>
       </NavbarItem>
       <NavbarItem>
         <Link  to="/signup" >

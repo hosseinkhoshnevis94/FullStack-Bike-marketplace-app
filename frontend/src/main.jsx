@@ -14,9 +14,12 @@ import Layout from './Layout';
 import SignIn from './assets/pages/SignIn/SignIn';
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <Layout/>,
     children:[
+      {
+        path: "/",
+        element: <Home/>,
+      },
       {
         path: "/signin",
         element: <SignIn/>,

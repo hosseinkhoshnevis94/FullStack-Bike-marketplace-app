@@ -41,7 +41,7 @@ export default function SignIn() {
           onChange={(e) => handleChange('password', e.target.value)}
           required
         />
-        <div className="text-center mt-4 mb-4">
+        <div className="text-center mt-3 mb-6">
           <Button type="submit"  variant="shadow" color="primary">Login</Button>
         </div>
       </form>
