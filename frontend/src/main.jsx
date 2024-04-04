@@ -12,6 +12,10 @@ import './index.css'
 import {NextUIProvider} from '@nextui-org/react'
 import Layout from './Layout';
 import SignIn from './assets/pages/SignIn/SignIn';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const router = createBrowserRouter([
   {
     element: <Layout/>,
@@ -47,6 +51,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <>
   <NextUIProvider>
   <RouterProvider router={router} />
+  <ToastContainer position="bottom-left" autoClose={2000}   />
   </NextUIProvider>
   </>,
 )

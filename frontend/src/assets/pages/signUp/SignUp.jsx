@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { Input, Button } from '@nextui-org/react';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function SignUp() {
+  const [isLoading,setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: ''
   });
+  const navigate = useNavigate()
 
   const handleChange = (name, value) => {
     setFormData(prevState => ({
@@ -16,11 +20,32 @@ export default function SignUp() {
     }));
   };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
+    setIsLoading(true)
     e.preventDefault();
-    // Add your form submission logic here
-    console.log(formData);
+    try {
+      const response = await axios.post('http://localhost:3000/api/auth/signup', formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+      );
+      if(response.status===201){
+        setFormData({})
+        toast.success(response.data.message +' Redirecting to home...',{
+          onClose: () =>   navigate('/')
+        });
+      
+      }
+    } catch (error) {
+      toast.error("Error occurred:");
+    }
+     finally{
+      setIsLoading(false)
+     }
   };
+  
 
   return (
     <div className="max-w-md  mx-auto p-6 rounded-md mt-14 shadow-xl bg-gradient-to-br from-cyan-200 to-fuchsia-400">
@@ -50,7 +75,7 @@ export default function SignUp() {
           required
         />
         <div className="text-center mt-3 mb-6">
-          <Button type="submit" variant="shadow" color="primary">Sign Up</Button>
+          <Button type="submit" variant="shadow" color="primary" isDisabled={isLoading} isLoading={isLoading} >{isLoading ? 'Loading...' :  'Sign Up'}</Button>
         </div>
       </form>
       <p className="text-sm text-gray-600 text-center">Already have an account? <Link to="/signin" className="text-blue-500">Login</Link></p>
