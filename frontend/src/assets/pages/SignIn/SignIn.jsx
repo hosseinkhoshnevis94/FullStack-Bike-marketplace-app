@@ -1,12 +1,16 @@
 import { Input, Button } from '@nextui-org/react';
+import axios from 'axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import {  toast } from 'react-toastify';
 
 export default function SignIn() {
+  const [isLoading,setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
+  const navigate = useNavigate()
 
   const handleChange = (name, value) => {
     setFormData(prevState => ({
@@ -15,10 +19,31 @@ export default function SignIn() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setIsLoading(true)
+    console.log('hi');
     e.preventDefault();
-    // Add your form submission logic here
-    console.log(formData);
+    try {
+      const response = await axios.post('http://localhost:3000/api/auth/signin', formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+      );
+      console.log(response);
+      if(response.status===200){
+        setFormData({})
+        toast.success(response.data.message +' Redirecting to home...',{
+          onClose: () =>   navigate('/')
+        });
+      
+      }
+    } catch (error) {
+      toast.error("Error occurred:");
+    }
+     finally{
+      setIsLoading(false)
+     }
   };
 
   return (
@@ -42,7 +67,7 @@ export default function SignIn() {
           required
         />
         <div className="text-center mt-3 mb-6">
-          <Button type="submit"  variant="shadow" color="primary">Login</Button>
+        <Button type="submit" variant="shadow" color="primary" isDisabled={isLoading} isLoading={isLoading} >{isLoading ? 'Loading...' :  'Login'}</Button>
         </div>
       </form>
       <p className="text-sm text-gray-600 text-center">Don't have an account? <Link to="/signup" className="text-blue-500">Sign Up</Link></p>

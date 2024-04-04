@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Input, Button } from '@nextui-org/react';
 import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 
 export default function SignUp() {
   const [isLoading,setIsLoading] = useState(false)
