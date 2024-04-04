@@ -14,7 +14,8 @@ import Layout from './Layout';
 import SignIn from './assets/pages/SignIn/SignIn';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { Provider } from 'react-redux'
+import { store } from './redux/store';
 
 const router = createBrowserRouter([
   {
@@ -49,9 +50,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
+   <Provider store={store}>
   <NextUIProvider>
   <RouterProvider router={router} />
   <ToastContainer position="bottom-left" autoClose={2000}   />
   </NextUIProvider>
+   </Provider>
   </>,
 )

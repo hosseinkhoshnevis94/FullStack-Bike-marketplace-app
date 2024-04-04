@@ -3,13 +3,16 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {  toast } from 'react-toastify';
+import { signInStart, signInSuccess, signInFailure} from '../../../redux/user/userSilce'
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function SignIn() {
-  const [isLoading,setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
+  const{loading , error} = useSelector(state=>state.user)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleChange = (name, value) => {
@@ -20,8 +23,7 @@ export default function SignIn() {
   };
 
   const handleSubmit = async (e) => {
-    setIsLoading(true)
-    console.log('hi');
+    dispatch(signInStart())
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/api/auth/signin', formData, {
@@ -30,20 +32,20 @@ export default function SignIn() {
         }
       }
       );
-      console.log(response);
       if(response.status===200){
         setFormData({})
         toast.success(response.data.message +' Redirecting to home...',{
           onClose: () =>   navigate('/')
         });
+        const userData = response.data.data
+        dispatch(signInSuccess(userData))
       
       }
     } catch (error) {
-      toast.error("Error occurred:");
+      toast.error(error?.response?.data?.message);
+       dispatch(signInFailure(error?.response?.data?.message))
     }
-     finally{
-      setIsLoading(false)
-     }
+
   };
 
   return (
@@ -67,7 +69,7 @@ export default function SignIn() {
           required
         />
         <div className="text-center mt-3 mb-6">
-        <Button type="submit" variant="shadow" color="primary" isDisabled={isLoading} isLoading={isLoading} >{isLoading ? 'Loading...' :  'Login'}</Button>
+        <Button type="submit" variant="shadow" color="primary" isDisabled={loading} isLoading={loading} >{loading ? 'Loading...' :  'Login'}</Button>
         </div>
       </form>
       <p className="text-sm text-gray-600 text-center">Don't have an account? <Link to="/signup" className="text-blue-500">Sign Up</Link></p>
