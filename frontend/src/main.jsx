@@ -17,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux'
 import { persistor, store } from './redux/store';
 import { PersistGate } from 'redux-persist/es/integration/react';
+import PrivateRoute from './assets/components/PrivateRoute/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -39,8 +40,13 @@ const router = createBrowserRouter([
         element: <About/>,
       },
       {
-        path: "/profile",
-        element: <Profile/>,
+        element: <PrivateRoute/>,
+        children:[
+          {
+            path:"/profile",
+            element:<Profile/>
+          }
+        ]
       },
 
 

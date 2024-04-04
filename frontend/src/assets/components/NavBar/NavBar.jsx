@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Button} from "@nextui-org/react";
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Button, Avatar} from "@nextui-org/react";
 import {navItems} from './navItems'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,9 +9,12 @@ export default function NavBar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const{user} = useSelector(state=>state.user)
     const dispatch = useDispatch()
+
 const logoutHandler = ()=>{
   dispatch(logout())
 }
+
+console.log(user);
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} className="shadow-md w-full h-20 select-none	">
@@ -38,9 +41,16 @@ const logoutHandler = ()=>{
     </NavbarContent>
     <NavbarContent justify="end">
       { user ? 
+      <>
             <NavbarItem className="hidden lg:flex">
+              <Link to='/profile'>
+              <img src={user?.photo} alt="" className='rounded-full border-2 border-purple-400 w-[50px]'  onClick={logoutHandler} />
+              </Link>
+           </NavbarItem>
+            {/* <NavbarItem className="hidden lg:flex">
             <Button onClick={logoutHandler}>logout</Button>
-          </NavbarItem>
+           </NavbarItem> */}
+      </>
           :
           <>
       <NavbarItem className="hidden lg:flex">
